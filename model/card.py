@@ -64,10 +64,10 @@ class Card(abc.ABC):
             The rank of the card
         """
         if not isinstance(suit, Suit):
-            raise TypeError("Parameter 'suit' is of invalid type")
+            raise TypeError("Parameter 'suit' is not of 'Suit' type")
         self._suit = suit
         if not isinstance(rank, Rank):
-            raise TypeError("Parameter 'rank' is of invalid type")
+            raise TypeError("Parameter 'rank' is not of 'Rank' type")
 
     @property
     def suit_symbol(self):
@@ -104,6 +104,18 @@ class Card(abc.ABC):
         str
             A symbol representing the card rank.
         """
+
+    @property
+    def short_name(self):
+        """
+        A shorthand name for the card e.g. 2D for 2 of Diamonds
+
+        Returns
+        -------
+        str
+            A string shorthand name for the card
+        """
+        return self.rank_symbol + self.suit_symbol
 
 
 class NumberCard(Card):

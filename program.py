@@ -1,8 +1,7 @@
-from model.card import AceCard
-from model.card import FaceCard
-from model.card import NumberCard
-from model.card import Suit
-from model.card import Rank
+from model.deck import Deck
 
-card = NumberCard(Suit.CLUBS, Rank.SEVEN)
-print(card.rank.name)
+number_of_decks = 1
+deck = Deck.build_multi_deck(number_of_decks)
+deck.shuffle()
+
+print('\n'.join(card.short_name for card in deck.cards))
