@@ -1,8 +1,8 @@
 """
-This module models a playing card.
+A module to model a playing card.
 """
 
-from abc import ABC, abstractmethod
+import abc
 from enum import Enum
 
 
@@ -35,97 +35,171 @@ class Rank(Enum):
     KING = 13
 
 
-class Card(ABC):
+class Card(abc.ABC):
     """
-    An abstract class representing a playing card
+    An abstract representation of a playing card.
+
+    Methods
+    ----------
+    suit_symbol : str
+        The symbol representing the suit name e.g D for Diamonds.
+    suit_name : str
+        The name of the suit
+    rank_symbol : str
+        The symbol representing the rank of the card
     """
     def __init__(
         self,
         suit,
         rank,
     ):
+        """
+        Initialises a new card
+
+        Parameters
+        ----------
+        suit : Suit
+            The suit of the card
+        rank : Rank
+            The rank of the card
+        """
         if not isinstance(suit, Suit):
             raise TypeError("Parameter 'suit' is of invalid type")
-        self.suit = suit
+        self._suit = suit
         if not isinstance(rank, Rank):
             raise TypeError("Parameter 'rank' is of invalid type")
-
 
     @property
     def suit_symbol(self):
         """
-        Gets the first letter of the suit name e.g D for Diamonds
-        """
-        return  self.suit.name[0]
+        The symbol representing the suit name e.g D for Diamonds
 
+        Returns
+        -------
+        str
+            A single character string representing the suit name.
+        """
+        return self._suit.name[0]
 
     @property
     def suit_name(self):
         """
-        Gets the name of the suit
-        """
-        return  self.suit.name
+        The name of the suit
 
+        Returns
+        -------
+        str
+            The name of the suit.
+        """
+        return self._suit.name
 
     @property
-    @abstractmethod
+    @abc.abstractmethod
     def rank_symbol(self):
         """
-        Gets the symbol representing the rank of the card e.g. A, 6, Q.
+        The symbol representing the rank of the card e.g. A, 10, Q.
+
+        Returns
+        -------
+        str
+            A symbol representing the card rank.
         """
 
 
 class NumberCard(Card):
     """
-    A class representing a numbered playing card
+    A representation of a numbered card.
+
+    Methods
+    ----------
+    rank_symbol : str
+        The symbol representing the rank of the card
     """
     def __init__(
         self,
         suit,
         rank,
     ):
+        """
+        Initialises a new numbered card
+
+        Parameters
+        ----------
+        suit : Suit
+            The suit of the card
+        rank : Rank
+            The rank of the card
+        """
         super().__init__(suit, rank)
         allowed_ranks = [rank.value for rank in Rank][1:10]
-        if not rank.value in allowed_ranks:
+        if rank.value not in allowed_ranks:
             raise ValueError('Rank ' + rank.name + ' is not a valid rank for a number card')
-        self.rank = rank
-
+        self._rank = rank
 
     @property
     def rank_symbol(self):
         """
-        Gets the symbol representing the value of the numbered card e.g. 2, 3.
+        The symbol representing the value of the numbered card i.e. 2-10.
+
+        Returns
+        -------
+        str
+            A symbol representing the card rank.
         """
-        return str(self.rank.value)
+        return str(self._rank.value)
 
 
 class FaceCard(Card):
     """
-    A class representing a faced playing card
+    A representation of a faced card.
+
+    Methods
+    ----------
+    rank_symbol : str
+        The symbol representing the rank of the card
     """
     def __init__(
         self,
         suit,
         rank,
     ):
+        """
+        Initialises a new faced card
+
+        Parameters
+        ----------
+        suit : Suit
+            The suit of the card
+        rank : Rank
+            The rank of the card
+        """
         super().__init__(suit, rank)
         allowed_ranks = [rank.value for rank in Rank][10:]
-        if not rank.value in allowed_ranks:
+        if rank.value not in allowed_ranks:
             raise ValueError('Rank ' + rank.name + ' is not a valid rank for a face card')
-        self.rank = rank
-
+        self._rank = rank
 
     @property
     def rank_symbol(self):
         """
-        Gets the symbol representing the value of the face card e.g. J, Q.
+        The symbol representing the value of the face card i.e. J, Q, K.
+
+        Returns
+        -------
+        str
+            A symbol representing the card rank.
         """
-        return self.rank.name[0]
+        return self._rank.name[0]
 
 
 class AceCard(Card):
     """
-    A class representing an ace playing card
+    A representation of an ace card.
+
+    Methods
+    ----------
+    rank_symbol : str
+        The symbol representing the rank of the card
     """
     def __init__(
         self,
@@ -135,12 +209,16 @@ class AceCard(Card):
         super().__init__(suit, rank)
         if rank.value != rank.ACE.value:
             raise ValueError('Rank ' + rank.name + ' is not a valid rank for an ace card')
-        self.rank = rank
-
+        self._rank = rank
 
     @property
     def rank_symbol(self):
         """
-        Gets the symbol representing the value of the face card i.e. A.
+        The symbol representing the value of the ace card i.e. A.
+
+        Returns
+        -------
+        str
+            A symbol representing the card rank.
         """
-        return self.rank.name[0]
+        return self._rank.name[0]
