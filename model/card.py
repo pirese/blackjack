@@ -39,7 +39,7 @@ class Card(abc.ABC):
     """
     An abstract representation of a playing card.
 
-    Methods
+    Attributes
     ----------
     suit_symbol : str
         The symbol representing the suit name e.g D for Diamonds.
@@ -47,6 +47,9 @@ class Card(abc.ABC):
         The name of the suit
     rank_symbol : str
         The symbol representing the rank of the card
+    short_name : str
+        A string shorthand name for the card
+        
     """
     def __init__(
         self,
@@ -122,7 +125,7 @@ class NumberCard(Card):
     """
     A representation of a numbered card.
 
-    Methods
+    Attributes
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
@@ -165,7 +168,7 @@ class FaceCard(Card):
     """
     A representation of a faced card.
 
-    Methods
+    Attributes
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
@@ -208,7 +211,7 @@ class AceCard(Card):
     """
     A representation of an ace card.
 
-    Methods
+    Attributes
     ----------
     rank_symbol : str
         The symbol representing the rank of the card

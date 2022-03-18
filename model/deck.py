@@ -16,10 +16,21 @@ class Deck:
     """
     A representation of a deck of cards.
 
+    Attributes
+    ----------
+    size : int
+        The number of cards currently in the deck
+
     Methods
     ----------
     build_multi_deck : list of Card
-        Build a deck comprised of many standard decks
+        Factory method to build a deck comprised of many standard decks
+    shuffle : None 
+        Shuffles the deck
+    draw : Card
+        Draws a card from the deck
+    replace : None
+        Replaces a card back into the deck at the bottom
     """
     def __init__(
         self,
@@ -37,7 +48,18 @@ class Deck:
                 else:
                     cards.append(FaceCard(suit, rank))
         self._cards = cards
-        self._draw_counter = 0
+
+    @property
+    def size(self):
+        """
+        The number of cards currently in the deck
+
+        Returns
+        -------
+        int
+            The number of cards in the deck.
+        """
+        return len(self._cards)
 
     @classmethod
     def build_multi_deck(cls, multiple):
@@ -58,36 +80,11 @@ class Deck:
         deck._cards = [card for card in deck._cards for i in range(multiple)]
         return deck
 
-    @property
-    def size(self):
-        """
-        Gets the number of cards currently in the deck
-
-        Returns
-        -------
-        int
-            The number of cards in the deck.
-        """
-        return len(self._cards)
-
-    @property
-    def draw_counter(self):
-        """
-        Gets the number of cards drawn from the deck since the last shuffle
-
-        Returns
-        -------
-        int
-            The number of cards drawn from the deck.
-        """
-        return self._draw_counter
-
     def shuffle(self):
         """
         Shuffles the deck of cards.
         """
         random.shuffle(self._cards)
-        self._draw_counter = 0
 
     def draw(self):
         """
@@ -101,7 +98,6 @@ class Deck:
         if not self._cards:
             raise IndexError("Deck is empty; dealer has not returned the cards!")
         card = self._cards.pop(0)
-        self._draw_counter += 1
         return card
 
     def replace(self, card):
