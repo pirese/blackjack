@@ -112,3 +112,4 @@ class Deck:
         if not issubclass(type(card), Card):
             raise TypeError("Parameter 'card' is not of 'Card' type")
         self._cards.append(card)
+

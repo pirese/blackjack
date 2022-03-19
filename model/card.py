@@ -109,6 +109,30 @@ class Card(abc.ABC):
         """
 
     @property
+    @abc.abstractmethod
+    def min_blackjack_value(self):
+        """
+        The minimum numeric value of the card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+
+    @property
+    @abc.abstractmethod
+    def max_blackjack_value(self):
+        """
+        The maximum numeric value of the card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+
+    @property
     def short_name(self):
         """
         A shorthand name for the card e.g. 2D for 2 of Diamonds
@@ -163,6 +187,30 @@ class NumberCard(Card):
         """
         return str(self._rank.value)
 
+    @property
+    def min_blackjack_value(self):
+        """
+        The minimum numeric value of the numbered card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+        return self._rank.value
+
+    @property
+    def max_blackjack_value(self):
+        """
+        The maximum numeric value of the numbered card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+        return self._rank.value
+
 
 class FaceCard(Card):
     """
@@ -205,6 +253,30 @@ class FaceCard(Card):
             A symbol representing the card rank.
         """
         return self._rank.name[0]
+    @property
+
+    def min_blackjack_value(self):
+        """
+        The minimum numeric value of the faced card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+        return Rank.TEN.value
+
+    @property
+    def max_blackjack_value(self):
+        """
+        The maximum numeric value of the faced card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+        return Rank.TEN.value
 
 
 class AceCard(Card):
@@ -237,3 +309,27 @@ class AceCard(Card):
             A symbol representing the card rank.
         """
         return self._rank.name[0]
+
+    def min_blackjack_value(self):
+        """
+        The minimum numeric value of the ace card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+        return Rank.ACE.value
+
+    @property
+    def max_blackjack_value(self):
+        """
+        The maximum numeric value of the ace card in blackjack.
+
+        Returns
+        -------
+        int
+            A numeric value for the card.
+        """
+        return Rank.TEN.value + 1
+
