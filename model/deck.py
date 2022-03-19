@@ -3,13 +3,12 @@ A module to model a deck of playing cards.
 """
 
 import random
-
+from model.constants import Suit
+from model.constants import Rank
 from model.card import Card
 from model.card import AceCard
 from model.card import FaceCard
 from model.card import NumberCard
-from model.card import Suit
-from model.card import Rank
 
 
 class Deck:
@@ -22,7 +21,7 @@ class Deck:
         The number of cards currently in the deck
 
     Methods
-    ----------
+    -------
     build_multi_deck : list of Card
         Factory method to build a deck comprised of many standard decks
     shuffle : None 
@@ -77,7 +76,7 @@ class Deck:
             A deck of cards comprised of many standard decks.
         """
         deck = cls()
-        deck._cards = [card for card in deck._cards for i in range(multiple)]
+        deck._cards = [card for card in deck._cards for _ in range(multiple)]
         return deck
 
     def shuffle(self):
@@ -106,10 +105,9 @@ class Deck:
 
         Parameters
         ----------
-        card : Card
+        card
             The card to be placed back into the deck
         """
         if not issubclass(type(card), Card):
             raise TypeError("Parameter 'card' is not of 'Card' type")
         self._cards.append(card)
-

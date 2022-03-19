@@ -3,36 +3,8 @@ A module to model a playing card.
 """
 
 import abc
-from enum import Enum
-
-
-class Suit(Enum):
-    """
-    The allowed suits for a playing card.
-    """
-    SPADES = 1
-    HEARTS = 2
-    CLUBS = 3
-    DIAMONDS = 4
-
-
-class Rank(Enum):
-    """
-    The allowed ranks for a playing card.
-    """
-    ACE = 1
-    TWO = 2
-    THREE = 3
-    FOUR = 4
-    FIVE = 5
-    SIX = 6
-    SEVEN = 7
-    EIGHT = 8
-    NINE = 9
-    TEN = 10
-    JACK = 11
-    QUEEN = 12
-    KING = 13
+from model.constants import Suit
+from model.constants import Rank
 
 
 class Card(abc.ABC):
@@ -47,6 +19,10 @@ class Card(abc.ABC):
         The name of the suit
     rank_symbol : str
         The symbol representing the rank of the card
+    min_blackjack_value : int
+        The minimum numeric value of the card in blackjack
+    max_blackjack_value : int
+        The maximum numeric value of the card in blackjack
     short_name : str
         A string shorthand name for the card
         
@@ -153,6 +129,10 @@ class NumberCard(Card):
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
+    min_blackjack_value : int
+        The minimum numeric value of the card in blackjack
+    max_blackjack_value : int
+        The maximum numeric value of the card in blackjack
     """
     def __init__(
         self,
@@ -220,6 +200,10 @@ class FaceCard(Card):
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
+    min_blackjack_value : int
+        The minimum numeric value of the card in blackjack
+    max_blackjack_value : int
+        The maximum numeric value of the card in blackjack
     """
     def __init__(
         self,
@@ -253,8 +237,8 @@ class FaceCard(Card):
             A symbol representing the card rank.
         """
         return self._rank.name[0]
-    @property
 
+    @property
     def min_blackjack_value(self):
         """
         The minimum numeric value of the faced card in blackjack.
@@ -287,6 +271,10 @@ class AceCard(Card):
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
+    min_blackjack_value : int
+        The minimum numeric value of the card in blackjack
+    max_blackjack_value : int
+        The maximum numeric value of the card in blackjack
     """
     def __init__(
         self,
@@ -332,4 +320,3 @@ class AceCard(Card):
             A numeric value for the card.
         """
         return Rank.TEN.value + 1
-
