@@ -30,26 +30,6 @@ class Round:
         """
         self._player_hand = []
         self._house_hand = []
-        self._status = RoundStatus.LIVE
-        self._result = RoundResult.HOUSE
-
-    @property
-    def status(
-        self,
-    ):
-        """
-        The current status of the round
-        """
-        return self._status
-
-    @property
-    def result(
-        self,
-    ):
-        """
-        The current result of the round
-        """
-        return self._result
 
     @property
     def player_hand(
@@ -69,29 +49,42 @@ class Round:
         """
         return self._house_hand
 
-    def evaluate(
+    @property
+    def status(
         self,
     ):
         """
-        Evaluates the current status and result of the round
+        The current status of the round
         """
         status = RoundStatus.LIVE
-        result = RoundResult.HOUSE
         if self._house_hand.is_blackjack():
             status = RoundStatus.DEAD
-            if self._player_hand.is_blackjack():
-                result = RoundResult.PUSH
         else:
             if self._player_hand.is_bust():
                 status = RoundStatus.DEAD
             else:
                 if self._house_hand.is_bust():
                     status = RoundStatus.DEAD
+        return status
+
+    @property
+    def result(
+        self,
+    ):
+        """
+        The current result of the round
+        """
+        result = RoundResult.HOUSE
+        if self._house_hand.is_blackjack():
+            if self._player_hand.is_blackjack():
+                result = RoundResult.PUSH
+        else:
+            if not self._player_hand.is_bust():
+                if self._house_hand.is_bust():
                     result = RoundResult.PLAYER
                 else:
                     if self._house_hand.max_value() < self._player_hand.max_value():
                         result = RoundResult.PLAYER
                     elif self._house_hand.max_value() == self._player_hand.max_value():
                         result = RoundResult.PUSH
-        self._status = status
-        self._result = result
+        return result
