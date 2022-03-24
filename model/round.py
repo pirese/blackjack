@@ -4,7 +4,6 @@ A module to model a round of blackjack
 
 from model.constants import RoundResult
 from model.constants import RoundStatus
-from model.hand import Hand
 
 
 class Round:
@@ -13,25 +12,32 @@ class Round:
 
     Attributes
     ----------
+    player_hand : Hand
+        The player's hand
+    house_hand : Hand
+        The house's hand
     status : RoundStatus
         The current status of the round
     result : RoundResult
         The current result of the round
-
-    Methods
-    -------
-    TODO
     """
     def __init__(
         self,
-        player_cards,
-        house_cards,
+        player_hand,
+        house_hand,
     ):
         """
         Initialises a new round
+
+        Parameters
+        ----------
+        player_hand : Hand
+            The player's hand
+        house_hand : Hand
+            The house's hand
         """
-        self._player_hand = Hand(player_cards)
-        self._house_hand = Hand(house_cards)
+        self._player_hand = player_hand
+        self._house_hand = house_hand
 
     @property
     def player_hand(

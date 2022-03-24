@@ -46,7 +46,6 @@ class RoundResult(Enum):
     HOUSE = 1
     PLAYER = 2
     PUSH = 3
-    UNKNOWN = 4
 
 
 class RoundStatus(Enum):
@@ -55,3 +54,11 @@ class RoundStatus(Enum):
     """
     LIVE = 1
     DEAD = 2
+
+
+class Choice(Enum):
+    """
+    The choice made by the player
+    """
+    STICK = 1
+    HIT = 2

@@ -3,6 +3,7 @@ A module to model a dealer of cards.
 """
 
 from model.deck import Deck
+from model.hand import Hand
 from model.round import Round
 
 
@@ -65,7 +66,9 @@ class Dealer:
         house_cards = [self._deck.draw()]
         player_cards.append(self._deck.draw())
         house_cards.append(self._deck.draw())
-        self._round = Round(player_cards, house_cards)
+        player_hand = Hand(player_cards)
+        house_hand = Hand(house_cards)
+        self._round = Round(player_hand, house_hand)
 
     def hit_player(
         self,
@@ -82,4 +85,3 @@ class Dealer:
         Deals a card to the house
         """
         self._round.house_hand.add(self._deck.draw())
-

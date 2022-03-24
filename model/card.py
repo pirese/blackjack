@@ -25,7 +25,6 @@ class Card(abc.ABC):
         The maximum numeric value of the card in blackjack
     short_name : str
         A string shorthand name for the card
-        
     """
     def __init__(
         self,
