@@ -91,8 +91,8 @@ class Hand:
             Whether the hand is bust.
         """
         return \
-            self.min_value > MAX_HAND_VALUE and \
-            self.max_value > MAX_HAND_VALUE
+            (self.min_value > MAX_HAND_VALUE and
+             self.max_value > MAX_HAND_VALUE)
 
     @property
     def is_blackjack(self):
@@ -105,8 +105,8 @@ class Hand:
             Whether the hand is blackjack.
         """
         return \
-            len(self._cards == 2) and \
-            self.max_value == MAX_HAND_VALUE
+            (len(self._cards) == 2 and
+             self.max_value == MAX_HAND_VALUE)
 
     def add(self, card):
         """

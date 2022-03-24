@@ -1,7 +1,7 @@
-from model.deck import Deck
+from controller.dealer_controller import DealerController
 
-number_of_decks = 1
-deck = Deck.build_multi_deck(number_of_decks)
-deck.shuffle()
-
-print('\n'.join(card.short_name for card in deck.cards))
+dc = DealerController()
+dc.start_round()
+dc.display_round()
+dc.play_house_hand()
+dc.display_round()

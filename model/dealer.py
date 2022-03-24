@@ -10,6 +10,11 @@ class Dealer:
     """
     A representation of a dealer of cards.
 
+    Attributes
+    ----------
+    round : Round
+        The current round
+
     Methods
     -------
     start_round : None
@@ -32,7 +37,16 @@ class Dealer:
             raise TypeError("Parameter 'deck_multiple' is not greater than zero")
         self._deck_multiple = deck_multiple
         self._renew_deck()
-        self._round = Round()
+        self._round = None
+
+    @property
+    def round(
+        self,
+    ):
+        """
+        The current round
+        """
+        return self._round
 
     def _renew_deck(
         self,
@@ -47,11 +61,11 @@ class Dealer:
         Starts a new round
         """
         self._renew_deck()
-        self._round = Round()
-        self.hit_player()
-        self.hit_house()
-        self.hit_player()
-        self.hit_house()
+        player_cards = [self._deck.draw()]
+        house_cards = [self._deck.draw()]
+        player_cards.append(self._deck.draw())
+        house_cards.append(self._deck.draw())
+        self._round = Round(player_cards, house_cards)
 
     def hit_player(
         self,
@@ -59,7 +73,7 @@ class Dealer:
         """
         Deals a card to the player
         """
-        self._round.player_hand.append(self._deck.draw())
+        self._round.player_hand.add(self._deck.draw())
 
     def hit_house(
         self,
@@ -67,4 +81,5 @@ class Dealer:
         """
         Deals a card to the house
         """
-        self._round.house_hand.append(self._deck.draw())
+        self._round.house_hand.add(self._deck.draw())
+

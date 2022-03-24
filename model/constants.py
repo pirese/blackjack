@@ -7,6 +7,7 @@ from enum import Enum
 
 
 MAX_HAND_VALUE = 21
+HOUSE_STICKS_ON = 17
 
 
 class Suit(Enum):
@@ -45,6 +46,7 @@ class RoundResult(Enum):
     HOUSE = 1
     PLAYER = 2
     PUSH = 3
+    UNKNOWN = 4
 
 
 class RoundStatus(Enum):

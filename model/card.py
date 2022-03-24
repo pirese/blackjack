@@ -298,6 +298,7 @@ class AceCard(Card):
         """
         return self._rank.name[0]
 
+    @property
     def min_blackjack_value(self):
         """
         The minimum numeric value of the ace card in blackjack.
