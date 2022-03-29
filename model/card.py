@@ -11,7 +11,7 @@ class Card(abc.ABC):
     """
     An abstract representation of a playing card.
 
-    Attributes
+    Properties
     ----------
     suit_symbol : str
         The symbol representing the suit name e.g D for Diamonds.
@@ -124,7 +124,7 @@ class NumberCard(Card):
     """
     A representation of a numbered card.
 
-    Attributes
+    Properties
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
@@ -195,7 +195,7 @@ class FaceCard(Card):
     """
     A representation of a faced card.
 
-    Attributes
+    Properties
     ----------
     rank_symbol : str
         The symbol representing the rank of the card
@@ -266,7 +266,7 @@ class AceCard(Card):
     """
     A representation of an ace card.
 
-    Attributes
+    Properties
     ----------
     rank_symbol : str
         The symbol representing the rank of the card

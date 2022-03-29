@@ -10,7 +10,7 @@ class Round:
     """
     A representation of a dealer of cards.
 
-    Attributes
+    Properties
     ----------
     player_hand : Hand
         The player's hand
@@ -38,6 +38,21 @@ class Round:
         """
         self._player_hand = player_hand
         self._house_hand = house_hand
+        self._player_sticks = False
+
+    @property
+    def player_sticks(self):
+        """
+        Whether the player sticks
+        """
+        return self._player_sticks
+
+    @player_sticks.setter
+    def player_sticks(self, value):
+        """
+        Setter for player_sticks
+        """
+        self._player_sticks = value
 
     @property
     def player_hand(
@@ -65,14 +80,14 @@ class Round:
         The current status of the round
         """
         status = RoundStatus.LIVE
-        if self._house_hand.is_blackjack:
+        if self._player_sticks:
             status = RoundStatus.DEAD
-        else:
-            if self._player_hand.is_bust:
-                status = RoundStatus.DEAD
-            else:
-                if self._house_hand.is_bust:
-                    status = RoundStatus.DEAD
+        elif self._house_hand.is_blackjack:
+            status = RoundStatus.DEAD
+        elif self._player_hand.is_bust:
+            status = RoundStatus.DEAD
+        elif self._house_hand.is_bust:
+            status = RoundStatus.DEAD
         return status
 
     @property

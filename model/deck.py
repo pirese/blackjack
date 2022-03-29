@@ -15,7 +15,7 @@ class Deck:
     """
     A representation of a deck of cards.
 
-    Attributes
+    Properties
     ----------
     size : int
         The number of cards currently in the deck

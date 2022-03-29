@@ -11,7 +11,7 @@ class Dealer:
     """
     A representation of a dealer of cards.
 
-    Attributes
+    Properties
     ----------
     round : Round
         The current round

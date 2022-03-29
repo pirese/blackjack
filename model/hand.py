@@ -10,7 +10,7 @@ class Hand:
     """
     A representation of a hand in blackjack.
 
-    Attributes
+    Properties
     ----------
     cards : list of Card
         The cards comprising the hand.
@@ -78,7 +78,10 @@ class Hand:
             value += card.max_blackjack_value
         if aces > 1:
             value = value - (aces - 1) * Rank.TEN.value
-        return value
+        if value > MAX_HAND_VALUE:
+            return self.min_value
+        else:
+            return value
 
     @property
     def is_bust(self):

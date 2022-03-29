@@ -3,6 +3,9 @@ A module to view a round of blackjack.
 """
 
 
+from model.constants import RoundStatus
+
+
 SEPARATOR = "--------------------"
 
 
@@ -12,17 +15,17 @@ class RoundView:
     """
     def __init__(
         self,
-        round,
+        round_,
     ):
         """
         Initialises a view of a round
 
         Parameters
         ----------
-        round : Round
+        round_ : Round
             The round of blackjack
         """
-        self._round = round
+        self._round = round_
 
     @staticmethod
     def welcome():
@@ -40,15 +43,17 @@ class RoundView:
         """
         print(SEPARATOR)
         self._print_hand()
-        self._print_result()
+        if self._round.status == RoundStatus.DEAD:
+            self._print_result()
 
     def _print_hand(
         self,
     ):
         player_hand = self._cards_string(self._round.player_hand.cards)
         player_hand += self._values_string(self._round.player_hand)
-        house_hand = self._cards_string(self._round.house_hand.cards)
-        house_hand += self._values_string(self._round.house_hand)
+        hide_value = self._round.status == RoundStatus.LIVE
+        house_hand = self._cards_string(self._round.house_hand.cards, hide_value)
+        house_hand += self._values_string(self._round.house_hand, hide_value)
         print("Player : " + player_hand)
         print("House  : " + house_hand)
 
@@ -68,9 +73,12 @@ class RoundView:
     @staticmethod
     def _values_string(
         hand,
+        hide_value=False,
     ):
         values_string = " ("
-        if hand.min_value == hand.max_value:
+        if hide_value:
+            values_string += "??"
+        elif hand.min_value == hand.max_value or hand.is_blackjack:
             values_string += str(hand.max_value)
         else:
             values_string += str(hand.min_value)
@@ -81,12 +89,18 @@ class RoundView:
     @staticmethod
     def _cards_string(
         cards,
+        hide_last=False,
     ):
         cards_string = ""
-        card_no = -1
+        card_no = 0
         for card in cards:
-            card_no += 1
-            cards_string += card.short_name
-            if card_no != len(cards) - 1:
+            if card_no < len(cards) - 1:
+                cards_string += card.short_name
                 cards_string += ", "
+            else:
+                if hide_last:
+                    cards_string += "??"
+                else:
+                    cards_string += card.short_name
+            card_no += 1
         return cards_string

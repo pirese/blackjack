@@ -4,7 +4,6 @@ from model.constants import RoundStatus
 from model.constants import Choice
 from model.dealer import Dealer
 from view.round_view import RoundView
-import msvcrt
 
 
 """
@@ -64,6 +63,7 @@ class DealerController:
             self._ask_player()
             choice = int(input())
             if choice == Choice.STICK.value:
+                self._dealer.round.player_sticks = True
                 break
             elif choice == Choice.HIT.value:
                 self._dealer.hit_player()
